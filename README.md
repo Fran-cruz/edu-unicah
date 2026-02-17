@@ -1,59 +1,83 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+###### **DESARROLLO DE SOFTWARE 1P**
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
 
-## About Laravel
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+composer create-project laravel/Laravel "NAME"
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
 
-## Learning Laravel
+composer require laravel/breeze --dev
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework. You can also check out [Laravel Learn](https://laravel.com/learn), where you will be guided through building a modern Laravel application.
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
 
-## Laravel Sponsors
+php artisan breeze:install
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+(vue ... dark ... /n)
 
-### Premium Partners
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
 
-## Contributing
+php artisan migrate
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
 
-## Code of Conduct
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+npm install --force  /  --legacy-peer-deps
 
-## Security Vulnerabilities
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
 
-## License
+npm run dev  ||  php artisan serve
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+
+
+========================================
+
+
+
+npm install vuetify --legacy-peer-deps
+
+
+
+npm install @mdi/font --force
+
+
+
+========================================
+
+
+
+replace 'resources/js/app.js' for:
+
+|<br />import './bootstrap';<br />import '../css/app.css';<br /><br />import { createApp, h } from 'vue';<br />import { createInertiaApp } from '@inertiajs/vue3';<br />import { resolvePageComponent } from 'laravel-vite-plugin/inertia-helpers';<br />import { ZiggyVue } from '../../vendor/tightenco/ziggy';<br /><br />import vuetify from './Plugins/vuetify';<br /><br />const appName = import.meta.env.VITE\_APP\_NAME \|\| 'Laravel';<br /><br />createInertiaApp({<br />    title: (title) => `${title} - ${appName}`,<br /><br />    resolve: (name) =><br />        resolvePageComponent(<br />            `./Pages/${name}.vue`,<br />            import.meta.glob('./Pages/\*\*/\*.vue')<br />        ),<br /><br />    setup({ el, App, props, plugin }) {<br />        return createApp({ render: () => h(App, props) })<br />            .use(plugin)   // Inertia plugin<br />            .use(ZiggyVue) // Ziggy for Laravel named routes<br />            .use(vuetify)  // Vuetify plugin<br />            .mount(el);<br />    },<br /><br />    progress: {<br />        color: '#4B5563',<br />        showSpinner: true,<br />    },<br />});<br />|
+|-|
+
+
+
+en 'js/Plugins/vuetify.js' (create dir \& js if null):
+
+|<br />// Vuetify configuration<br />import 'vuetify/styles'<br />import { createVuetify } from 'vuetify'<br />import \* as components from 'vuetify/components'<br />import \* as directives from 'vuetify/directives'<br />import { mdi } from 'vuetify/iconsets/mdi'<br /><br />export default createVuetify({<br />    components,<br />    directives,<br />    icons: {<br />        defaultSet: 'mdi',<br />        sets: { mdi },<br />    },<br />    theme: {<br />        defaultTheme: 'light',<br />        themes: {<br />            light: {<br />                dark: false,<br />                colors: {<br />                    primary: '#22c55e',<br />                    secondary: '#fbbf24',<br />                    accent: '#22c55e',<br />                    error: '#ef4444',<br />                    info: '#3b82f6',<br />                    success: '#10b981',<br />                    warning: '#f59e0b',<br />                    background: '#ffffff',<br />                    surface: '#ffffff',<br />                    'on-primary': '#ffffff',<br />                    'on-secondary': '#1f2937',<br />                    'on-background': '#2d3748',<br />                    'on-surface': '#2d3748',<br />                    'grey-50': '#f9fafb',<br />                    'grey-100': '#f3f4f6',<br />                    'grey-200': '#e5e7eb',<br />                    'grey-300': '#d1d5db',<br />                    'grey-400': '#9ca3af',<br />                    'grey-500': '#6b7280',<br />                    'grey-600': '#4b5563',<br />                    'grey-700': '#374151',<br />                    'grey-800': '#1f2937',<br />                    'grey-900': '#111827',<br />                },<br />            },<br />            dark: {<br />                dark: true,<br />                colors: {<br />                    primary: '#22c55e',<br />                    secondary: '#fbbf24',<br />                    accent: '#22c55e',<br />                    error: '#ef4444',<br />                    info: '#3b82f6',<br />                    success: '#10b981',<br />                    warning: '#f59e0b',<br />                    background: '#1f2937',<br />                    surface: '#374151',<br />                    'on-primary': '#ffffff',<br />                    'on-secondary': '#1f2937',<br />                    'on-background': '#f9fafb',<br />                    'on-surface': '#f9fafb',<br />                },<br />            },<br />        },<br />    },<br />})<br />|
+|-|
+
+
+
+
+
+add to 'routes/web.php':
+
+|<br />use App\\Http\\Controllers\\StudentController;<br />use App\\Http\\Controllers\\CourseController;<br /><br />Route::get('/courses', \[CourseController::class, 'index'])->name('courses.index');<br />Route::get('/courses/create', \[CourseController::class, 'create'])->name('courses.create');<br />Route::get('/courses/edit', \[CourseController::class, 'edit'])->name('courses.edit');<br />|
+|-|
+
+
+
+template for 'Course/Index.vue':
+
+|<br /><script setup><br />    import { Link } from '@inertiajs/vue3'<br /></script><br /><br /><template><br />    <div class="d-flex justify-center ga-2"><br />    <h1>Este es Courses/Index.vue</h1><br />    </div><br /><br />    <div class="d-flex justify-center"><br />        <Link href="/courses/create"><br />            <v-btn>Ir a /Create</v-btn><br />        </Link><br /><br />        <Link href="/courses/edit"><br />            <v-btn>Ir a /Edit</v-btn><br />        </Link><br />    </div><br /></template><br />|
+|-|
+
+
+
+template for NavLinks on 'AuthenticatedLayout.vue':
+
+|<br /><script setup><br />import { NavLink } from '@inertiajs/vue3';<br /></script><br /><br /><template><br />    <NavLink<br />        :href="route('courses.index')"<br />        :active="route().current('courses.index')"<br />    ><br />        Courses<br />    </NavLink><br /></template><br />|
+|-|
+
+
+

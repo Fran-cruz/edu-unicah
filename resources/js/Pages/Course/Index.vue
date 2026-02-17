@@ -1,26 +1,19 @@
 <script setup>
-
+import { Link } from '@inertiajs/vue3'
 </script>
 
 <template>
-    <h1>Este es Course/Index.vue</h1>
-    <h1>Tiene acceso sin autenticacion</h1>
+    <div class="d-flex justify-center ga-2">
+        <h1>Este es Courses/Index.vue</h1>
+    </div>
 
-    <a
-        href="/course/create"
-        class="inline-block mt-4 px-5 py-2.5 bg-blue-600 text-white rounded hover:bg-blue-700"
-    >
-        Ir a /Create
-    </a>
+    <div class="d-flex justify-center">
+        <Link href="/courses/create">
+            <v-btn>Ir a /Create</v-btn>
+        </Link>
 
-    <a
-        href="/course/edit"
-        class="inline-block mt-4 px-5 py-2.5 bg-blue-600 text-white rounded hover:bg-blue-700"
-    >
-        Ir a /Edit
-    </a>
+        <Link href="/courses/edit">
+            <v-btn>Ir a /Edit</v-btn>
+        </Link>
+    </div>
 </template>
-
-<style scoped>
-
-</style>
