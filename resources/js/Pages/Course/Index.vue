@@ -1,8 +1,10 @@
 <script setup>
 import { Link } from '@inertiajs/vue3'
+import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
 </script>
 
 <template>
+    <AuthenticatedLayout>
     <div class="d-flex justify-center ga-2">
         <h1>Este es Courses/Index.vue</h1>
     </div>
@@ -16,4 +18,5 @@ import { Link } from '@inertiajs/vue3'
             <v-btn>Ir a /Edit</v-btn>
         </Link>
     </div>
+    </AuthenticatedLayout>
 </template>

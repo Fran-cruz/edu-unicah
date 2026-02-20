@@ -239,29 +239,64 @@ const showingNavigationDropdown = ref(false);
                 <v-list>
                     <v-list-item
                         prepend-avatar="https://randomuser.me/api/portraits/women/1.jpg"
-                        subtitle="sandra_a88@gmailcom"
-                        title="Sandra Adams"
+                        :subtitle="$page.props.auth?.user?.email || ''"
+                        :title="$page.props.auth?.user?.name || 'Guest'"
                     ></v-list-item>
                 </v-list>
 
                 <v-divider></v-divider>
 
-                <v-list density="compact" nav>
-                    <v-list-item
-                        prepend-icon="mdi-account"
-                        title="My Files"
-                        value="myfiles"
-                    ></v-list-item>
-                    <v-list-item
-                        prepend-icon="mdi mdi-account-multiple"
-                        title="Shared with me"
-                        value="shared"
-                    ></v-list-item>
-                    <v-list-item
-                        prepend-icon="mdi mdi-star"
-                        title="Starred"
-                        value="starred"
-                    ></v-list-item>
+                <v-list nav density="comfortable">
+                    <Link
+                        :href="route('student.index')"
+                        :active="route().current('student.index')"
+                    >
+                        <v-list-item
+                            prepend-icon="mdi-account-school"
+                            title="Student"
+                        />
+                    </Link>
+
+                    <Link
+                        :href="route('courses.index')"
+                        :active="route().current('courses.index')"
+                    >
+                        <v-list-item
+                            prepend-icon="mdi-book-open-variant"
+                            title="Courses"
+                        />
+                    </Link>
+
+                    <Link
+                        :href="route('course_offer.index')"
+                        :active="route().current('course_offer.index')"
+                    >
+                        <v-list-item
+                            prepend-icon="mdi-book-plus"
+                            title="Course Offer"
+                        />
+                    </Link>
+
+                    <Link
+                        :href="route('faculty.index')"
+                        :active="route().current('faculty.index')"
+                    >
+                        <v-list-item
+                            prepend-icon="mdi-account-tie"
+                            title="Faculties"
+                        />
+                    </Link>
+
+                    <Link
+                        :href="route('period.index')"
+                        :active="route().current('period.index')"
+                    >
+                        <v-list-item
+                            prepend-icon="mdi-calendar-clock"
+                            title="Period"
+                        />
+                    </Link>
+
                 </v-list>
             </v-navigation-drawer>
 

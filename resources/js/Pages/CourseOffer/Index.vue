@@ -1,8 +1,10 @@
 <script setup>
 
+import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
 </script>
 
 <template>
+    <AuthenticatedLayout>
     <h1>Este es CourseOffer/Index.vue</h1>
 
     <a
@@ -18,6 +20,7 @@
     >
         Ir a /Edit
     </a>
+    </AuthenticatedLayout>
 </template>
 
 <style scoped>

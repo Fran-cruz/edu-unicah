@@ -1,8 +1,10 @@
 <script setup>
 
+import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
 </script>
 
 <template>
+    <AuthenticatedLayout>
     <h1>Este es Faculty/Index.vue</h1>
 
 
@@ -19,6 +21,7 @@
     >
         Ir a /Edit
     </a>
+    </AuthenticatedLayout>
 </template>
 
 <style scoped>

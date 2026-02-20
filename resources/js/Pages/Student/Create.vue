@@ -1,5 +1,6 @@
 <script setup>
 import { ref, shallowRef, onMounted, computed } from 'vue'
+import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
 
 // Current year
 const currentYear = new Date().getFullYear()
@@ -80,6 +81,7 @@ function reset() {
 </script>
 
 <template>
+    <AuthenticatedLayout>
     <h1>Este es Student/Create.vue</h1>
 
     <v-sheet border rounded class="pa-4">
@@ -176,6 +178,7 @@ function reset() {
             </v-card-actions>
         </v-card>
     </v-dialog>
+    </AuthenticatedLayout>
 </template>
 
 <style scoped>
