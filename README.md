@@ -4,7 +4,6 @@
 ```bash
 composer create-project laravel/Laravel "NAME"
 ```
----------------------
 
 ```terminal
 composer require laravel/breeze --dev
@@ -14,7 +13,7 @@ composer require laravel/breeze --dev
 ```terminal
 php artisan breeze:install 
 ```
-select: 'vue' -> dark -> none (/n)
+select: `vue` -> `dark` -> `none` (/n)
 
 ---------------------
 
@@ -24,13 +23,17 @@ php artisan migrate
 ---------------------
 
 ```terminal
-npm install --force  /  --legacy-peer-deps
+npm install --force
+npm install --legacy-peer-deps
 ```
 
 ---------------------
 
 ```terminal
-npm run dev  ||  php artisan serve
+npm run dev
+```
+```terminal
+php artisan serve
 ```
 (each on a different terminal)
 
@@ -45,10 +48,9 @@ npm install @mdi/font --force
 
 ---------------------
 
+replace `resources/js/app.js` for:
 
-replace 'resources/js/app.js' for:
-
-```vue
+```js
 import './bootstrap';
 import '../css/app.css';
 
@@ -87,9 +89,9 @@ createInertiaApp({
 
 
 
-en 'js/Plugins/vuetify.js' (create dir \& js if null):
+en `js/Plugins/vuetify.js` (create dir \& js if necessary):
 
-```vue
+```js
 // Vuetify configuration
 import 'vuetify/styles'
 import { createVuetify } from 'vuetify'
@@ -158,22 +160,48 @@ export default createVuetify({
 })
 ```
 
+---------------------
 
+add these imports to `routes/web.php`
 
-add to 'routes/web.php':
-
-```vue
+```php
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\CourseController;
-
-Route::get('/courses', [CourseController::class, 'index'])->name('courses.index');
-Route::get('/courses/create', [CourseController::class, 'create'])->name('courses.create');
-Route::get('/courses/edit', [CourseController::class, 'edit'])->name('courses.edit');
 ```
 
 
 
-template for 'Course/Index.vue':
+and add routes in the following format:
+```php
+Route::get('/courses', [CourseController::class, 'index'])->name('courses.index');
+Route::get('/courses/create', [CourseController::class, 'create'])->name('courses.create');
+Route::get('/courses/edit', [CourseController::class, 'edit'])->name('courses.edit');
+```
+---------------------
+
+to make them visible for auth users only, add the `Route:get` INSIDE the `middleware` like this
+```php
+Route::middleware('auth')->group(function () {
+    Route::get('/courses', [CourseController::class, 'index'])->name('courses.index');
+    Route::get('/courses/create', [CourseController::class, 'create'])->name('courses.create');
+    Route::get('/courses/edit', [CourseController::class, 'edit'])->name('courses.edit');
+}
+```
+to make them visible for auth and guest users, add the `Route:get` OUTSIDE the `middleware` like this
+
+```php
+Route::get('/courses', [CourseController::class, 'index'])->name('courses.index');
+Route::get('/courses/create', [CourseController::class, 'create'])->name('courses.create');
+Route::get('/courses/edit', [CourseController::class, 'edit'])->name('courses.edit');
+
+Route::middleware('auth')->group(function () {
+    . . .
+}
+```
+---------------------
+
+
+template for `Course/Index.vue`:
 
 ```vue
 <script setup>
@@ -196,10 +224,11 @@ template for 'Course/Index.vue':
     </div>
 </template>
 ```
+---------------------
 
 
 
-template for NavLinks on 'AuthenticatedLayout.vue':
+template for NavLinks on `AuthenticatedLayout.vue`:
 
 ```vue
 <script setup>
@@ -216,6 +245,150 @@ import { NavLink } from '@inertiajs/vue3';
 </template>
 ```
 
+---------------------
+
+
+to create the side panel, first add this import to `<script>` on `AuthenticatedLayout.vue` for the icons to work
+```vue
+<script>
+    <!-- The rest of the file stayus the same, copy only the import -->
+    import '@mdi/font/css/materialdesignicons.css'
+</script>
+```
+
+then add the `<v-card>` at the end of the `<template>` on `AuthenticatedLayout.vue`
+
+```vue
+<template>
+    <div>
+        <!-- The rest of the file stayus the same, copy only the <v-card> -->
+    </div>
+
+    <v-card>
+        <v-layout>
+            <v-navigation-drawer expand-on-hover permanent rail>
+                <v-list>
+                    <v-list-item
+                        prepend-avatar="https://randomuser.me/api/portraits/women/1.jpg"
+                        :subtitle="$page.props.auth?.user?.email || ''"
+                        :title="$page.props.auth?.user?.name || 'Guest'"
+                    ></v-list-item>
+                </v-list>
+
+                <v-divider></v-divider>
+
+                <v-list nav density="comfortable">
+                    <Link
+                        :href="route('student.index')"
+                        :active="route().current('student.index')"
+                    >
+                        <v-list-item
+                            prepend-icon="mdi-account-school"
+                            title="Student"
+                        />
+                    </Link>
+
+                    <Link
+                        :href="route('courses.index')"
+                        :active="route().current('courses.index')"
+                    >
+                        <v-list-item
+                            prepend-icon="mdi-book-open-variant"
+                            title="Courses"
+                        />
+                    </Link>
+
+                    <Link
+                        :href="route('course_offer.index')"
+                        :active="route().current('course_offer.index')"
+                    >
+                        <v-list-item
+                            prepend-icon="mdi-book-plus"
+                            title="Course Offer"
+                        />
+                    </Link>
+
+                    <Link
+                        :href="route('faculty.index')"
+                        :active="route().current('faculty.index')"
+                    >
+                        <v-list-item
+                            prepend-icon="mdi-account-tie"
+                            title="Faculties"
+                        />
+                    </Link>
+
+                    <Link
+                        :href="route('period.index')"
+                        :active="route().current('period.index')"
+                    >
+                        <v-list-item
+                            prepend-icon="mdi-calendar-clock"
+                            title="Period"
+                        />
+                    </Link>
+
+                </v-list>
+            </v-navigation-drawer>
+
+            <v-main style="height: 250px"></v-main>
+        </v-layout>
+    </v-card>
+</template>
+
+```
+---------------------
+
+icons can be found at
+https://pictogrammers.com/library/mdi/
 
 
 
+while looking for icons, select `WEBFONT` when looking at the code and copy the `class`, e.g.:
+```webfont
+<span class="mdi mdi-abacus"></span>
+```
+
+
+
+paste just `mdi-abacus` to `prepend-icon` on the `<v-list-item>`
+```vue
+<Link
+    :href="route('abacus.index')"
+    :active="route().current('abacus.index')"
+>
+    <v-list-item
+        prepend-icon="mdi-abacus"
+        title="Abacus"
+    />
+</Link>
+```
+
+---------------------
+
+add `AuthenticatedLayout` to every vue page so the side panel and navigation bar are visible
+
+
+first import the layout on `<script>`
+```vue
+<script>
+    <!-- The rest of the file stayus the same, copy only the import -->
+    import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
+</script>
+```
+
+
+
+then add `<AuthenticatedLayout>` as a label at the start and end of `<template>` (remember to add the slash to close `</AuthenticatedLayout>`). E.g. of `Courses/Index.vue`:
+```vue
+<template>
+    <AuthenticatedLayout>
+
+    <div class="d-flex justify-center ga-2">
+        <h1>Este es Courses/Index.vue</h1>
+    </div>
+
+    </AuthenticatedLayout>
+</template>
+```
+---------------------
